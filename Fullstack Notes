@@ -1,0 +1,70 @@
+1. User signs up via google OAuth (Express Server, MongoDB, PassportJS)
+2. User pays for email credits via stripe. (Stripe, MongoDB)
+3. User creates a new 'campaign' (React, Redux)
+4. User enters list of emails to send survey to (React, Redux, Redux Form)
+5. We send email to list of surveyees (Email Provider)
+6. Suveyees click on link in email to provide feedback. (Email Provider, Express, MongoDB)
+7. We tabulate feedback. (Mongo?)
+8. User can see report of all survey responses. (Mongo, React, Redux)
+
+How React works with Express/Node API, and MongoDB
+
+
+Node
+----
+Javascript runtime used to execute code outside of the browser
+
+Express
+-------
+Library that runs in the Node runtime has helpers to make dealing with HTTP 
+traffic easier.
+
+1. Create index.js file in root of server folder (usual starting file for express apps).
+2. During time of this course Node.js only supports commonJS modules const express = require('express');
+	- on the front-end React side we have access to the ES2015 module syntax import express from 'express';
+
+Heroku Deployment Checklist
+---------------------------
+1. Dynamic Port Binding 
+	- When we deploy to heroku, heroku will tell us what port to bind to, configure the help to bind to heroku's dynamic port.
+	const express = require('express');
+	const app = express();
+
+	// The env (environment variables) are defined at runtime by heroku, this will dynamically sign the port to the const variable but it's on localhost it will run on port 5000
+
+	const PORT = process.env.PORT || 5000
+
+2. Specify Node Environment.
+	- we must tell heroku want specific version of node we want to use.
+
+	(inside package.json)
+	"main": "index.js",
+	"engines": {
+		"node": "8.1.1",
+		"npm": "5.0.3"
+	}
+
+
+3. Specify Start Script
+	- Instruct heroku what command to run to start our server running
+
+	- Whenever heroku attempts to deploy and start your app will run the script inside
+	  of the scripts object in your package.json file 
+
+	  (change your package. json scripts object to)
+
+	  "scripts": {
+	  	"start": "node index.js"
+	  }
+
+4. create .gitignore file
+	- specify what filed to ignore that heroku will generate for you.
+
+	(inside root folder)
+		-Create .gitignore file
+			-open up file and add 
+				- node_modules (exactly like that no / on it's own separate line)
+
+
+
+
